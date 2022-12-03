@@ -262,12 +262,16 @@
 <script>
 import Header from './components/Header.vue';
 import Auth from './components/Auth.vue';
+import { createDOMCompilerError } from '@vue/compiler-dom';
 
 export default {
   name: 'App',
   components: {
     Header,
     Auth,
+  },
+  created() {
+    this.$store.dispatch('initial_login');
   }
 }
 </script>

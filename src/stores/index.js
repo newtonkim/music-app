@@ -34,9 +34,21 @@ export default createStore({
 
             //  from the store responsible for toggling the login and logout
             commit('toggleAuth');
-        }
+        },
 
-       
+        initial_login({commit}){
+            const user = auth.currentUser;
+
+            if (user) {
+                commit('toggleAuth');
+            }
+        },
+
+        async login({commit}, payload) {
+            await auth.signInWithEmailAndPassword(payload.email, payload.password);
+            
+            commit('toggleAuth');
+        }
     },
 
     getters: {
