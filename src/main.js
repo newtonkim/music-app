@@ -8,6 +8,7 @@ import VeeValidatePlugin from './includes/validation.js';
 
 import "./assets/tailwind.css";
 import "./assets/main.css";
+import "./includes/firebase"
 
 const app = createApp(App);
 

@@ -93,6 +93,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'Registerform',
   data() {
@@ -118,17 +119,27 @@ export default {
     }
   },
   methods: {
-    register(values) {
-          this.reg_in_submission = true,
-            this.reg_show_alert = true,
-            this.reg_alert_variant = 'bg-blue-600',
-            this.reg_alert_msg = 'Please wait! Your account is bring created',
+    async register(values) {
+        this.reg_in_submission = true,
+        this.reg_show_alert = true,
+        this.reg_alert_variant = 'bg-blue-600',
+        this.reg_alert_msg = 'Please wait! Your account is bring created';
 
-            // Dummy request
-            this.reg_alert_variant = 'bg-green-600',
-            this.reg_alert_msg = 'Success! Your account has been created',
-
-            console.log(values);
+      
+        try {
+          await this.$store.dispatch('register', values);
+          
+        } catch (error) {
+          this.reg_in_submission = false;
+          this.reg_alert_variant = 'bg-red-600';
+          this.reg_alert_msg = 'Unexpected error has occured. Please try again later';
+          return;
+        }
+      
+        // Dummy request
+        this.reg_alert_variant = 'bg-green-600';
+        this.reg_alert_msg = 'Success! Your account has been created';
+        
       },
   }
 }
